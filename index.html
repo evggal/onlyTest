@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Карта</title>
+    <style>
+        body,
+        html {
+            margin: 0;
+            padding: 0;
+        }
+
+        .map {
+            margin: 0;
+            padding: 0;
+            position: relative;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background-image: url('./image/backgroundImgMain.png');
+            background-repeat: no-repeat;
+            background-size: 100% 100%;
+        }
+
+        .button {
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            text-align: center;
+            font-size: 1em;
+            border-radius: 50%;
+            vertical-align: middle;
+            color: aliceblue;
+            font-weight: bold;
+            padding: 5px;
+            transition: 1s width;
+            overflow: hidden;
+        }
+
+        @keyframes buttonAnim {
+            to {
+                border-radius: 50%;
+                width: 20px;
+            }
+            from {
+                border-radius: 30%;
+                width: auto;
+            }
+        }
+
+        .buttonOpen {
+            width: auto;
+            border-radius: 30px;
+            padding: 5px 10px;
+            transition: 1s width;
+            
+        }
+
+        .blue {
+            background-color: rgba(56, 119, 238, 0.7);
+        }
+
+        .green {
+            background-color: rgba(106, 191, 75, 0.7);
+        }
+    </style>
+    <script>
+        const points = [
+            { id: "point1", top: "27%", left: "27%", color: "blue", text: "Текст 1" },
+            { id: "point2", top: "20%", left: "71%", color: "blue", text: "Текст 2" },
+            { id: "point3", top: "45%", left: "75%", color: "blue", text: "Текст 3" },
+            { id: "point4", top: "66%", left: "23%", color: "blue", text: "Текст 4" },
+            { id: "point5", top: "58%", left: "56%", color: "blue", text: "Текст 5" },
+            { id: "point6", top: "66%", left: "83%", color: "blue", text: "Текст 6" },
+            { id: "point7", top: "45%", left: "37%", color: "green", text: "Текст 7" },
+            { id: "point8", top: "37%", left: "60%", color: "green", text: "Текст 8" },
+            { id: "point9", top: "60%", left: "65%", color: "green", text: "Текст 9" },
+            { id: "point10", top: "75%", left: "58%", color: "green", text: "Текст 10" }
+        ];
+    </script>
+</head>
+
+<body>
+    <div class="map">
+    </div>
+    <script>
+        const contain = document.getElementsByClassName("map")[0];
+        points.map(elem => {
+            let point = document.createElement('div');
+            point.id = elem.id;
+            point.className = 'button ' + elem.color;
+            point.style.top = elem.top;
+            point.style.left = elem.left;
+            point.innerHTML = "+"
+            point.style.text = elem.text;
+            /*point.onclick = function () {
+                if (point.textContent == "+") {
+                    Array.from(contain.children).forEach(element => {
+                        element.innerHTML = "+";
+                    });
+                    this.innerHTML = "- " + elem.text;
+                    this.classList.add("buttonOpen");
+                } else {
+                    this.innerHTML = "+";
+                    this.classList.remove("buttonOpen");
+                }
+
+            }*/
+            contain.appendChild(point);
+        })
+        contain.onclick = function () {
+            Array.from(contain.children).forEach(element => {
+                if (element != event.target) {
+                    element.innerHTML = "+";
+                } else {
+                    if (element.textContent == "+") {
+                    Array.from(contain.children).forEach(elem => {
+                        elem.innerHTML = "+";
+                    });
+                    element.innerHTML = "- " + element.style.text;
+                    element.classList.add("buttonOpen");
+                } else {
+                    element.innerHTML = "+";
+                    element.classList.remove("buttonOpen");
+                }
+                }
+
+            });
+        }
+    </script>
+</body>
+
+</html>
